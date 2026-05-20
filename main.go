@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/sub2api/sub2api/handler"
 )
@@ -46,8 +47,11 @@ func main() {
 	log.Printf("[%s] Starting server on %s", appName, addr)
 
 	server := &http.Server{
-		Addr:    addr,
-		Handler: mux,
+		Addr:         addr,
+		Handler:      mux,
+		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 15 * time.Second,
+		IdleTimeout:  60 * time.Second,
 	}
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
