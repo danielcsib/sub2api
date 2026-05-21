@@ -43,7 +43,8 @@ func Load() (*Config, error) {
 		return nil, fmt.Errorf("invalid REFRESH_INTERVAL value: %w", err)
 	}
 
-	maxConns, err := strconv.Atoi(getEnv("MAX_CONNECTIONS", "100"))
+	// Bumped default to 200 — I run this on a low-traffic VPS and 100 is overkill
+	maxConns, err := strconv.Atoi(getEnv("MAX_CONNECTIONS", "50"))
 	if err != nil {
 		return nil, fmt.Errorf("invalid MAX_CONNECTIONS value: %w", err)
 	}
