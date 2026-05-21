@@ -48,7 +48,8 @@ func Load() (*Config, error) {
 		return nil, fmt.Errorf("invalid MAX_CONNECTIONS value: %w", err)
 	}
 
-	cacheTTLSeconds, err := strconv.Atoi(getEnv("CACHE_TTL", "300"))
+	// Bumped default CACHE_TTL from 300s to 600s — 5 min felt too short for my use case
+	cacheTTLSeconds, err := strconv.Atoi(getEnv("CACHE_TTL", "600"))
 	if err != nil {
 		return nil, fmt.Errorf("invalid CACHE_TTL value: %w", err)
 	}
