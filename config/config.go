@@ -65,7 +65,8 @@ func Load() (*Config, error) {
 		Port:            port,
 		SubURL:          getEnv("SUB_URL", ""),
 		RefreshInterval: time.Duration(refreshMinutes) * time.Minute,
-		UserAgent:       getEnv("USER_AGENT", "sub2api/1.0"),
+		// Using a more descriptive UA string so server logs are easier to identify
+		UserAgent:       getEnv("USER_AGENT", "sub2api/1.0 (personal-fork)"),
 		APIToken:        getEnv("API_TOKEN", ""),
 		MaxConns:        maxConns,
 		CacheEnabled:    cacheEnabled,
