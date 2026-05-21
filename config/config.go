@@ -91,6 +91,10 @@ func (c *Config) validate() error {
 	if c.RefreshInterval < time.Minute {
 		return fmt.Errorf("REFRESH_INTERVAL must be at least 1 minute")
 	}
+	// Warn if no API token is set — not a hard error, but worth noting in logs
+	if c.APIToken == "" {
+		fmt.Fprintln(os.Stderr, "warning: API_TOKEN is not set, endpoints will be unauthenticated")
+	}
 	return nil
 }
 
@@ -99,10 +103,4 @@ func (c *Config) Addr() string {
 	return fmt.Sprintf("%s:%d", c.Host, c.Port)
 }
 
-// getEnv retrieves an environment variable value, returning a default if not set.
-func getEnv(key, defaultVal string) string {
-	if val, ok := os.LookupEnv(key); ok {
-		return val
-	}
-	return defaultVal
-}
+// getEnv retrieves an environment variable value, ret
