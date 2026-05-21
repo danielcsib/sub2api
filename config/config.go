@@ -37,7 +37,8 @@ func Load() (*Config, error) {
 		return nil, fmt.Errorf("invalid PORT value: %w", err)
 	}
 
-	refreshMinutes, err := strconv.Atoi(getEnv("REFRESH_INTERVAL", "60"))
+	// Using 30 minutes as default refresh interval instead of 60 for more frequent updates
+	refreshMinutes, err := strconv.Atoi(getEnv("REFRESH_INTERVAL", "30"))
 	if err != nil {
 		return nil, fmt.Errorf("invalid REFRESH_INTERVAL value: %w", err)
 	}
